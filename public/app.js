@@ -84,7 +84,8 @@ function renderManage() {
 }
 $('#manage').addEventListener('click', async e => {
   const id = e.target.dataset.del; if (!id) return;
-  await fetch('/api/vehicles/' + id, { method: 'DELETE', headers: {'x-admin-token': token} });
+  const r = await fetch('/api/vehicles/' + id, { method: 'DELETE', headers: {'x-admin-token': token} });
+  if (!r.ok) alert((await r.json()).error || 'Could not delete');
   load();
 });
 // General WhatsApp links (footer + floating button)
