@@ -1,0 +1,6 @@
+[
+ {"id":"bmw-i4","brand":"BMW","model":"i4 eDrive40","year":2022,"price":38500,"image":"/img/bmw-i4.jpg","specs":{"Engine":"Electric, 250 kW","Transmission":"Single-speed automatic","Mileage":"21,000 km","Fuel":"Electric","Drive":"RWD","Colour":"Blue metallic","Auction grade":"4.5"}},
+ {"id":"audi-a7","brand":"Audi","model":"A7 Sportback 45 TFSI","year":2021,"price":41200,"image":"/img/audi-a7.jpg","specs":{"Engine":"2.0L turbo petrol","Transmission":"7-speed S tronic","Mileage":"28,500 km","Fuel":"Petrol","Drive":"Quattro AWD","Colour":"Grey metallic","Auction grade":"4.5"}},
+ {"id":"mb-gle","brand":"Mercedes-Benz","model":"GLE 53 AMG","year":2022,"price":69800,"image":"/img/mercedes-gle.jpg","specs":{"Engine":"3.0L inline-6 turbo","Transmission":"9G-Tronic","Mileage":"18,200 km","Fuel":"Petrol hybrid","Drive":"4MATIC+ AWD","Colour":"Polar white","Auction grade":"5"}},
+ {"id":"p911","brand":"Porsche","model":"911 Carrera 4","year":2020,"price":112000,"image":"/img/porsche-911.jpg","specs":{"Engine":"3.0L flat-6 twin-turbo","Transmission":"8-speed PDK","Mileage":"15,900 km","Fuel":"Petrol","Drive":"AWD","Colour":"Agate grey","Auction grade":"4.5"}}
+]

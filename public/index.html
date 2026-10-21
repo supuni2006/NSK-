@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NSK Japan | Japanese car importers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="nav" id="nav">
+  <a href="#top" class="brand"><img src="/img/logo.png" alt="NSK Japan"></a>
+  <nav>
+    <a href="#brands">Brands</a><a href="#fleet">Collection</a><a href="#process">How it works</a><a href="#contact">Contact</a>
+  </nav>
+  <button class="pill" id="adminBtn">Admin</button>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <img class="hero-car" src="/img/hero.jpg" alt="Imported luxury sedan">
+  <div class="hero-copy">
+    <h1>Premium cars<br>from Japan.</h1>
+    <p>We source, inspect and ship graded vehicles straight from Japanese auctions and dealers, with full paperwork handled.</p>
+  </div>
+  <form class="glass finder" id="finder">
+    <label>Brand<select id="fBrand"><option value="">All brands</option></select></label>
+    <label>Max budget (USD)<input id="fBudget" type="number" placeholder="e.g. 60000"></label>
+    <label>Year from<input id="fYear" type="number" placeholder="e.g. 2020"></label>
+    <button class="pill solid">Find vehicles</button>
+  </form>
+</section>
+
+<section class="sec" id="brands">
+  <h2>Shop by brand</h2>
+  <div class="cats">
+    <button data-brand="Mercedes-Benz" style="--i:0"><img src="/img/cat-mercedes.jpg" alt=""><span>Mercedes-Benz</span></button>
+    <button data-brand="Audi"><img src="/img/cat-audi.jpg" alt=""><span>Audi</span></button>
+    <button data-brand="BMW"><img src="/img/cat-bmw.jpg" alt=""><span>BMW</span></button>
+    <button data-brand="Porsche"><img src="/img/cat-porsche.jpg" alt=""><span>Porsche</span></button>
+  </div>
+</section>
+
+<section class="sec light" id="fleet">
+  <div class="row"><h2>Current collection</h2><button class="pill" id="showAll">Show all</button></div>
+  <div class="grid" id="grid"></div>
+  <p class="empty" id="empty" hidden>No vehicles match. Try a higher budget or another brand.</p>
+</section>
+
+<section class="sec steps" id="process">
+  <div><h3>Choose</h3><p>Pick from our collection or tell us what you want us to find.</p></div>
+  <div><h3>Inspect</h3><p>Every car is graded and checked in Japan before purchase.</p></div>
+  <div><h3>Ship</h3><p>We handle export, shipping and customs paperwork.</p></div>
+  <div><h3>Drive</h3><p>Collect your vehicle at the port, registered and ready.</p></div>
+</section>
+
+<footer class="sec" id="contact">
+  <img src="/img/logo.png" alt="NSK Japan" class="flogo">
+  <p>Questions about a vehicle? Add your contact details here.</p>
+  <small>&copy; 2026 NSK Japan</small>
+</footer>
+
+<div class="modal" id="specModal" hidden><div class="glass sheet" id="specBody"></div></div>
+
+<aside class="drawer" id="drawer" hidden>
+  <div class="glass sheet">
+    <button class="x" id="closeDrawer" aria-label="Close">&times;</button>
+    <div id="login">
+      <h3>Admin sign in</h3>
+      <input id="pw" type="password" placeholder="Password">
+      <button class="pill solid" id="loginBtn">Sign in</button>
+      <p class="msg" id="loginMsg"></p>
+    </div>
+    <div id="panel" hidden>
+      <h3>Add a vehicle</h3>
+      <form id="addForm">
+        <input name="brand" placeholder="Brand" required>
+        <input name="model" placeholder="Model" required>
+        <input name="year" type="number" placeholder="Year">
+        <input name="price" type="number" placeholder="Price (USD)">
+        <input name="engine" placeholder="Engine">
+        <input name="transmission" placeholder="Transmission">
+        <input name="mileage" placeholder="Mileage">
+        <input name="fuel" placeholder="Fuel">
+        <input name="drive" placeholder="Drive (AWD, RWD...)">
+        <input name="colour" placeholder="Colour">
+        <input name="grade" placeholder="Auction grade">
+        <input name="image" type="file" accept="image/*">
+        <button class="pill solid">Publish vehicle</button>
+      </form>
+      <p class="msg" id="addMsg"></p>
+      <h3>Manage vehicles</h3>
+      <ul id="manage"></ul>
+    </div>
+  </div>
+</aside>
+<script src="/app.js"></script>
+</body>
+</html>
