@@ -86,3 +86,10 @@ footer{border-top:1px solid var(--line);display:grid;gap:12px;justify-items:star
 .nav nav{display:none}.cats,.steps{grid-template-columns:1fr 1fr}
 .finder{grid-template-columns:1fr}.hero-car{width:120vw;right:-10vw;top:80px}#specBody{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* WhatsApp inquiry */
+.wa{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:#07351b;font-weight:600;font-size:14px;padding:10px 18px;border-radius:999px;transition:background .2s,transform .2s}
+.wa:hover{background:#1ebe5b;transform:translateY(-1px)}
+.wa.big{padding:12px 24px;font-size:15px}
+.wa svg{flex:none}
+.wa-float{position:fixed;right:20px;bottom:20px;z-index:40;background:#25d366;color:#07351b;font-weight:600;font-size:14px;padding:12px 20px;border-radius:999px;box-shadow:0 8px 24px #0006;transition:transform .2s}
+.wa-float:hover{transform:translateY(-2px)}
