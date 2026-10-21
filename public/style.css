@@ -93,3 +93,10 @@ footer{border-top:1px solid var(--line);display:grid;gap:12px;justify-items:star
 .wa svg{flex:none}
 .wa-float{position:fixed;right:20px;bottom:20px;z-index:40;background:#25d366;color:#07351b;font-weight:600;font-size:14px;padding:12px 20px;border-radius:999px;box-shadow:0 8px 24px #0006;transition:transform .2s}
 .wa-float:hover{transform:translateY(-2px)}
+/* Footer company details (horizontal row, wraps on small screens) */
+.company{font-style:normal;width:100%;display:flex;flex-wrap:wrap;align-items:flex-start;gap:16px 48px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink);font-size:15px;line-height:1.5}
+.company .co-name{flex:1 1 100%}
+.company strong{font-family:var(--display);font-size:18px}
+.company .co-item{display:grid;gap:2px}
+.company .co-item small{color:var(--mute);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.company a:hover{text-decoration:underline}
