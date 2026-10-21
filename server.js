@@ -8,12 +8,29 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'nsk2026'; // change this
 const DB = path.join(__dirname, 'data', 'vehicles.json');
-const UPLOADS = path.join(__dirname, 'public', 'uploads');
-fs.mkdirSync(UPLOADS, { recursive: true });
+const ON_VERCEL = !!process.env.VERCEL;
+// Vercel's filesystem is read-only (except /tmp), so only touch disk locally
+const UPLOADS = ON_VERCEL ? '/tmp/uploads' : path.join(__dirname, 'public', 'uploads');
+try { fs.mkdirSync(UPLOADS, { recursive: true }); } catch (e) { console.warn('uploads dir:', e.message); }
 
-const tokens = new Set();
+// Stateless signed tokens (an in-memory Set is lost between serverless invocations)
+const sign = (exp) => crypto.createHmac('sha256', ADMIN_PASSWORD).update(String(exp)).digest('hex');
+const makeToken = () => { const exp = Date.now() + 12 * 3600 * 1000; return exp + '.' + sign(exp); };
+const validToken = (t) => {
+  if (!t || typeof t !== 'string') return false;
+  const [exp, sig] = t.split('.');
+  if (!exp || !sig || Number(exp) < Date.now()) return false;
+  const good = sign(exp);
+  return sig.length === good.length && crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(good));
+};
 const read = () => JSON.parse(fs.readFileSync(DB, 'utf8'));
-const write = (d) => fs.writeFileSync(DB, JSON.stringify(d, null, 2));
+const write = (d) => {
+  if (ON_VERCEL) {
+    const e = new Error('Saving is not supported on Vercel (read-only storage). Connect a database such as Vercel Blob, KV or Supabase.');
+    e.status = 501; throw e;
+  }
+  fs.writeFileSync(DB, JSON.stringify(d, null, 2));
+};
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -25,7 +42,7 @@ const upload = multer({
 });
 
 const auth = (req, res, next) =>
-  tokens.has(req.headers['x-admin-token']) ? next() : res.status(401).json({ error: 'Sign in required' });
+  validToken(req.headers['x-admin-token']) ? next() : res.status(401).json({ error: 'Sign in required' });
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -38,9 +55,7 @@ app.get('/api/vehicles', (req, res) => {
 
 app.post('/api/login', (req, res) => {
   if (req.body.password !== ADMIN_PASSWORD) return res.status(401).json({ error: 'Wrong password' });
-  const t = crypto.randomBytes(24).toString('hex');
-  tokens.add(t);
-  res.json({ token: t });
+  res.json({ token: makeToken() });
 });
 
 app.post('/api/vehicles', auth, upload.single('image'), (req, res) => {
@@ -65,4 +80,14 @@ app.delete('/api/vehicles/:id', auth, (req, res) => {
   res.json({ ok: true });
 });
 
-app.listen(PORT, () => console.log(`NSK Japan running at http://localhost:${PORT}`));
+// Error handler so failures return JSON instead of crashing the function
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(err.status || 500).json({ error: err.message || 'Server error' });
+});
+
+if (!ON_VERCEL) {
+  app.listen(PORT, () => console.log(`NSK Japan running at http://localhost:${PORT}`));
+}
+
+module.exports = app;
